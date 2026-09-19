@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Configurações — Revisão de Texto com IA</title>
+  <link rel="stylesheet" href="ui.css">
+</head>
+<body>
+<main>
+  <h1>Revisão de Texto com IA</h1>
+  <p class="sub">Configurações · <a href="usage.html">Uso de tokens</a></p>
+
+  <div class="banner" id="welcome">
+    <strong>Como seus dados são tratados.</strong> O texto só sai do navegador quando você aciona a revisão
+    (botão flutuante, atalho <kbd>Alt+Shift+R</kbd> ou menu de contexto). No motor "assinatura" ele passa pelo Claude Code
+    local e segue para a Anthropic; no motor "API" vai direto para <code>api.anthropic.com</code>.
+    Nenhum texto é gravado: só ficam salvos a contagem de tokens e o tamanho do texto.
+  </div>
+
+  <section>
+    <h2>Motor de revisão</h2>
+    <label class="inline"><input type="radio" name="engine" value="cli"> Minha assinatura Claude, via Claude Code instalado neste computador (sem crédito de API)</label>
+    <label class="inline"><input type="radio" name="engine" value="api"> API da Anthropic, com chave e crédito próprios</label>
+    <div id="bridgeBox">
+      <p class="hint">A ponte roda <code>claude -p</code> na sua máquina e usa o login do Claude Code (a cota da sua assinatura).
+        Instale uma vez: <code>bash native-host/install.sh</code> (dentro da pasta da extensão) e recarregue a extensão.</p>
+      <div class="row"><button id="bridgeTest">Testar ponte</button><span class="status" id="bridgeStatus"></span></div>
+    </div>
+    <div class="status" id="engineStatus"></div>
+  </section>
+
+  <section id="apiSection">
+    <h2>Chave de API</h2>
+    <p class="hint">Só é usada no motor "API". Fica só neste computador (<code>chrome.storage.local</code>, não sincroniza). Crie uma chave dedicada
+      no console da Anthropic com limite de gasto: chamadas diretas do navegador exigem esse cuidado.</p>
+    <div class="row">
+      <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
+      <button class="primary" id="saveKey">Salvar chave</button>
+      <button id="clearKey">Remover</button>
+    </div>
+    <div class="status" id="keyStatus"></div>
+  </section>
+
+  <section>
+    <h2>Modelo</h2>
+    <label for="model">Modelo</label>
+    <select id="model"></select>
+    <label for="customModel">Ou um ID de modelo digitado (tem prioridade sobre a lista)</label>
+    <input type="text" id="customModel" placeholder="ex.: claude-sonnet-5" spellcheck="false">
+    <div class="row"><button class="primary" id="saveModel">Salvar modelo</button><span class="status" id="modelStatus"></span></div>
+  </section>
+
+  <section>
+    <h2>Lista de exceções</h2>
+    <p class="hint">Palavras e expressões que a revisão deve ignorar (uma por linha). Não diferencia maiúsculas de
+      minúsculas, mas diferencia acentos (<em>ideia</em> ≠ <em>idéia</em>). Vale no prompt e também num filtro em código.</p>
+    <label class="inline"><input type="checkbox" id="wlEnabled"> Usar a lista de exceções nas revisões</label>
+    <textarea id="wlText" spellcheck="false" placeholder="idéia&#10;vôo&#10;a nível de"></textarea>
+    <div class="row">
+      <button class="primary" id="wlSave">Salvar lista</button>
+      <button id="wlImport">Importar…</button>
+      <button id="wlExport">Exportar</button>
+      <input type="file" id="wlFile" accept=".txt,text/plain" class="hidden">
+      <span class="hint" id="wlCount"></span><span class="status" id="wlStatus"></span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Instruções de estilo</h2>
+    <p class="hint">Regras suas que se somam ao prompt base (o formato JSON de saída não pode ser alterado). Exemplo:
+      “Mantenha o trema e o acento diferencial de <em>pôr</em>.”</p>
+    <textarea id="style" placeholder="Minhas preferências de ortografia e estilo…"></textarea>
+    <div class="row">
+      <button class="primary" id="styleSave">Salvar instruções</button>
+      <button id="promptPreview">Ver prompt final</button>
+      <span class="status" id="styleStatus"></span>
+    </div>
+    <pre id="promptOut" class="hidden"></pre>
+  </section>
+
+  <section>
+    <h2>Sites com botão flutuante</h2>
+    <p class="hint">O botão só aparece nos sites desta lista (inclui subdomínios). O atalho e o menu de contexto funcionam em qualquer site.</p>
+    <ul class="sites" id="siteList"></ul>
+    <div class="row">
+      <input type="text" id="siteInput" placeholder="exemplo.com" spellcheck="false">
+      <button class="primary" id="siteAdd">Ativar site</button>
+    </div>
+    <div class="status" id="siteStatus"></div>
+  </section>
+
+  <section>
+    <h2>Limites de tamanho</h2>
+    <div class="row">
+      <label for="warnChars" style="margin:0">Avisar acima de</label><input type="number" id="warnChars" min="100" style="width:110px">
+      <label for="blockChars" style="margin:0">Bloquear acima de</label><input type="number" id="blockChars" min="100" style="width:110px">
+      <span class="hint">caracteres</span>
+      <button class="primary" id="limitsSave">Salvar</button><span class="status" id="limitsStatus"></span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Métricas de uso</h2>
+    <p class="hint">Cada revisão grava só data, tokens de entrada e saída e o tamanho do texto, em armazenamento local.</p>
+    <label class="inline"><input type="checkbox" id="metricsOn"> Registrar métricas</label>
+    <div class="row">
+      <a class="btn" href="usage.html">Ver gráfico</a>
+      <button id="csvExport">Exportar CSV</button>
+      <button class="danger" id="metricsClear">Apagar métricas</button>
+      <span class="status" id="metricsStatus"></span>
+    </div>
+  </section>
+</main>
+<script src="lib/core.js"></script>
+<script src="lib/db.js"></script>
+<script src="options.js"></script>
+</body>
+</html>

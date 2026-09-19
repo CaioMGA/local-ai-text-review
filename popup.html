@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Revisão de Texto com IA</title>
+  <link rel="stylesheet" href="ui.css">
+  <style>body { width: 300px; } main { padding: 12px; } section { margin-bottom: 10px; padding: 10px 12px; }</style>
+</head>
+<body>
+<main>
+  <h2>Revisão de Texto com IA</h2>
+  <p class="hint" id="keyWarn" hidden>Falta a chave de API. Abra as configurações.</p>
+  <section>
+    <div id="siteName" class="hint"></div>
+    <label class="inline"><input type="checkbox" id="siteToggle"> Mostrar o botão flutuante neste site</label>
+    <div class="status" id="siteStatus"></div>
+  </section>
+  <p class="hint">Atalho: <kbd>Alt+Shift+R</kbd> revisa o campo em foco ou o texto selecionado. Nada é enviado sem esse comando.</p>
+  <div class="row">
+    <a class="btn" href="options.html" target="_blank">Configurações</a>
+    <a class="btn" href="usage.html" target="_blank">Uso de tokens</a>
+  </div>
+</main>
+<script src="lib/core.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

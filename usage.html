@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Uso de tokens — Revisão de Texto com IA</title>
+  <link rel="stylesheet" href="ui.css">
+  <style>
+    .tabs { display: flex; gap: 6px; margin-bottom: 12px; }
+    .tabs button[aria-pressed=true] { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+    .totals { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 12px; }
+    .totals div { border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+    .totals b { display: block; font-size: 20px; }
+    svg { width: 100%; height: auto; display: block; }
+    svg text { fill: var(--muted); font-size: 11px; font-family: inherit; }
+    .legend { display: flex; gap: 16px; margin-top: 6px; font-size: 12px; color: var(--muted); }
+    .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Uso de tokens</h1>
+  <p class="sub"><a href="options.html">← Configurações</a></p>
+  <div class="tabs" role="group" aria-label="Período">
+    <button data-p="day">Dia</button><button data-p="week">Semana</button>
+    <button data-p="month">Mês</button><button data-p="year">Ano</button>
+  </div>
+  <div class="totals" id="totals"></div>
+  <div class="card">
+    <div id="chart"></div>
+    <div class="legend"><span><i style="background:var(--in)"></i>Entrada</span><span><i style="background:var(--out)"></i>Saída</span></div>
+  </div>
+  <p class="hint" id="empty" hidden>Nenhuma revisão registrada ainda.</p>
+</main>
+<script src="lib/core.js"></script>
+<script src="lib/db.js"></script>
+<script src="usage.js"></script>
+</body>
+</html>

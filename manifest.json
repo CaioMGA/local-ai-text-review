@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Revisão de Texto com IA",
+  "version": "0.1.0",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApppr9xp6w8K81Y4E1V9o2sLQuR3jkNWUqA+REbrzTqGqOQk2wrWqJ1tu5U7jk3/b3vajJ2IBSUQIx2txRltQdoY1Qic8cgEldoLrRqTmXzwqehw1HYch8IAF68qHrk+Q+RkdpZqfalD7Ht3Ynj2uAWvg8E5hZBAsSueV9TfphEunachHjyEPu/SwYBpeUKOiskEyWZ9XmYbFYvLKZQhGDxqVpoBHxl1xPVWSu22zl8qNM9IFu3mMmpB+ry+vLt9X/8ypUj+UQJ1XhqCPhz4nu9mh2Fo5BQTzw4cMRR8v76nPq2kvTexqt0GygeCtK/WvS6av3XZiLF4TbBVN/EqWpQIDAQAB",
+  "description": "Revisão ortográfica, gramatical e de clareza (PT-BR e inglês) com Claude. Só envia texto quando você aciona a revisão.",
+  "minimum_chrome_version": "111",
+  "icons": { "16": "icons/icon16.png", "48": "icons/icon48.png", "128": "icons/icon128.png" },
+  "permissions": ["storage", "contextMenus", "activeTab", "scripting", "unlimitedStorage", "nativeMessaging"],
+  "host_permissions": [
+    "https://api.anthropic.com/*",
+    "*://*.caiomga.com/*",
+    "*://*.substack.com/*"
+  ],
+  "optional_host_permissions": ["*://*/*"],
+  "background": { "service_worker": "background.js" },
+  "action": {
+    "default_title": "Revisão de Texto com IA",
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html",
+  "commands": {
+    "review": {
+      "suggested_key": { "default": "Alt+Shift+R" },
+      "description": "Revisar o texto selecionado ou o campo em foco"
+    }
+  }
+}
