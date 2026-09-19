@@ -21,6 +21,23 @@ de qualquer texto em qualquer página, em **português do Brasil e inglês**, us
 - **Instruções de estilo:** regras suas que se somam ao prompt base.
 - **Métricas de tokens:** gráfico de tokens por dia, semana, mês e ano, sem guardar nenhum texto.
 
+## Capturas de tela
+
+<table>
+  <tr>
+    <td align="center" valign="top">
+      <img src="docs/images/screenshot.png" width="360" alt="Painel de sugestões com o card da gramática expandido, mostrando a explicação detalhada do botão Me explica">
+      <br>
+      <sub><b>Painel de sugestões:</b> diff do trecho que muda, categoria, explicação curta e a explicação detalhada aberta pelo <b>Me explica</b>.</sub>
+    </td>
+    <td align="center" valign="top">
+      <img src="docs/images/screenshot-2.png" width="310" alt="Popup da extensão com a opção de mostrar o botão flutuante no site atual, o atalho e os links para configurações e uso de tokens">
+      <br>
+      <sub><b>Popup do ícone:</b> ativa o botão flutuante no site atual e leva às configurações e ao uso de tokens.</sub>
+    </td>
+  </tr>
+</table>
+
 ## Instalar
 
 1. `brave://extensions` (ou `chrome://extensions`) → ativar **Modo do desenvolvedor** → **Carregar sem compactação** →
